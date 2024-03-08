@@ -1,6 +1,9 @@
 // Selector For Targeting Each Button
 let buttons = document.querySelectorAll(".drum");
 let audio;
+let keybutton = Array.from(buttons).map((button) => {
+  return button.innerHTML;
+});
 
 // Give Event To The Button
 for (let i = 0; i < buttons.length; i++) {
@@ -13,7 +16,9 @@ for (let i = 0; i < buttons.length; i++) {
 
 document.addEventListener("keydown", function (e) {
   let keyPressed = e.key.toLowerCase();
-  makeAnimation(document.querySelector(`.${keyPressed}`));
+  if (keybutton.includes(keyPressed)) {
+    makeAnimation(document.querySelector(`.${keyPressed}`));
+  }
   makeSound(keyPressed);
 });
 
@@ -47,12 +52,13 @@ function makeSound(key) {
 
 // Function For Animation
 function makeAnimation(button) {
-  console.log(buttons);
-  buttons.forEach((btn) => {
-    btn.style.color = "#da0463";
-    btn.style.transform = "scale(1)";
-  });
+  if (keybutton.includes(button.innerHTML)) {
+    buttons.forEach((btn) => {
+      btn.style.color = "#da0463";
+      btn.style.transform = "scale(1)";
+    });
 
-  button.style.color = "white";
-  button.style.transform = "scale(.8)";
+    button.style.color = "white";
+    button.style.transform = "scale(.8)";
+  }
 }
